@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script>
+		//字符串去重
+		function remove(str){
+			var index = [];
+			for(var i = 0;i < str.length;i++){
+				if(str[i] == str[i+1]){
+					index.push(i);
+				}
+			}
+			var arr = str.split('');
+			for(var j = 0;j < index.length;j++){
+				arr.splice(index[j],1,'');
+			}
+			return arr.join('');
+		}
+		//对象遍历
+		var tree = {
+			"id": 0,
+    		"name": "root",
+    		"left": {
+        		"id": 1,
+        		"name": "Simon",
+        		"left": {
+            		"id": 3,
+            		"name": "Carl",
+            		"left": {
+                		"id": 7,
+                		"name": "Lee",
+                		"left": {
+                    		"id": 11,
+                    		"name": "Fate"
+                		}
+            		},
+            		"right": {
+	                	"id": 8,
+	                	"name": "Annie",
+	                	"left": {
+                    		"id": 12,
+                    		"name": "Saber"
+                		}
+            		}
+       			},
+       			"right": {
+            		"id": 4,
+            		"name": "Tony",
+            		"left": {
+                		"id": 9,
+               			"name": "Candy"
+            		}
+       			}
+   			},
+    		"right": {
+        		"id": 2,
+       			"name": "right",
+        		"left": {
+            		"id": 5,
+            		"name": "Carl",
+        		},
+        		"right": {
+            		"id": 6,
+            		"name": "Carl",
+            		"right": {
+                		"id": 10,
+                		"name": "Kai"
+            		}        
+        		}
+    		}
+		}
+		//根据ID查找Name
+		function findIdByName(name){
+			var id;
+			function find(obj){
+				if(typeof obj == 'object'){
+					if(obj.name == name){
+						id = obj.id;
+					}
+					find(obj.left);
+					find(obj.right);
+				}
+			}
+			find(tree);
+			return id;
+		}
+		//根据Name查找ID
+		function findNameById(id){
+			var name;
+			function find(obj){
+				if(typeof obj == 'object'){
+					if(obj.id == id){
+						name = obj.name;
+					}
+					find(obj.left);
+					find(obj.right);
+				}
+			}
+			find(tree);
+			return name;
+		}
+		//前序遍历,根-->左-->右
+		function getListWithDLR(){
+			var arr=[];
+			function DLR(obj){
+				if(typeof obj == 'object'){
+					arr.push(obj.name);
+					DLR(obj.left);
+					DLR(obj.right);
+				}
+			}
+			DLR(tree);
+			return arr;
+		}
+		//中序遍历,左-->根-->右
+		function getListWithLDR(){
+			var arr=[];
+			function LDR(obj){
+				if(typeof obj == 'object'){
+					LDR(obj.left);
+					arr.push(obj.name);
+					LDR(obj.right);
+				}
+			}
+			LDR(tree);
+			return arr;
+		}
+		//后续遍历,左-->右-->根
+		function getListWithLRD(){
+			var arr=[];
+			function LRD(obj){
+				if(typeof obj == 'object'){
+					LRD(obj.left);
+					LRD(obj.right);
+					arr.push(obj.name);
+				}
+			}
+			LRD(tree);
+			return arr;
+		}
+
+
+		//数组排序,
+		//arr.sort(function(a,b){
+		//if(a<b) return -1;
+		//if(a>b) retunr 1;
+		//return 0;
+		//})
+	</script>
+</body>
+</html>
